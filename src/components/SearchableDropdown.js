@@ -23,7 +23,6 @@ const SearchableDropdown = ({
         onChangeItem={onItemChange}
         containerStyle={{ height: 40 }}
         style={{ backgroundColor: '#fafafa' }}
-        zIndex={z}
       />
     </View>
   );
@@ -32,11 +31,7 @@ const SearchableDropdown = ({
 export default SearchableDropdown;
 
 const styles = StyleSheet.create({
-  fullWidthContainer: {
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20
-  },
+  
   itemLabel: {
     marginLeft: 10,
     marginBottom: 10,

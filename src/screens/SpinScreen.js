@@ -6,25 +6,22 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import SearchableDropdown from '../components/SearchableDropdown';
 import { generateYearList, languageList } from '../dropdownArrays';
 
-const tempLangList = [
-  {
-    value: '1920',
-    label: '1920'
-  },
-  {
-    value: '1921',
-    label: '1921'
-  },
-  {
-    value: '1922',
-    label: '1922'
-  }
-];
+const initialState = {
+  yearFrom: '1955',
+  yearTo: '2020'
+};
 
 const SpinScreen = () => {
   const [language, setLanguage] = useState('en');
-  const [yearList, setYearList] = useState([]);
-  const [yearFrom, setYearFrom] = useState('1920');
+  const [yearFrom, setYearFrom] = useState(initialState.yearFrom);
+  const [yearTo, setYearTo] = useState(initialState.yearTo);
+
+  const [yearList, setYearList] = useState([
+    { label: yearFrom, value: yearFrom }
+  ]);
+  const [yearListReversed, setYearListReversed] = useState([
+    { label: yearTo, value: yearTo }
+  ]);
 
   const languageChange = ({ label, value }) => {
     // setLanguage(value);
@@ -33,7 +30,11 @@ const SpinScreen = () => {
   useEffect(() => {
     const years = generateYearList();
     setYearList(years);
+    const reversedYearList = generateYearList().reverse();
+    setYearListReversed(reversedYearList);
   }, []);
+
+  console.log('yearListReversed: ', yearListReversed);
 
   return (
     <>
@@ -45,16 +46,25 @@ const SpinScreen = () => {
           onItemChange={languageChange}
           parentViewStyle={styles.lanaguageContainer}
           labelText="Langauge"
-          z={200}
         />
-        <SearchableDropdown
-          itemList={tempLangList}
-          defaultChoice="1920"
-          searchPlaceholder="Year From"
-          onItemChange={languageChange}
-          parentViewStyle={styles.lanaguageContainer}
-          labelText="From"
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <SearchableDropdown
+            itemList={yearList}
+            defaultChoice={yearFrom}
+            searchPlaceholder="Year From"
+            onItemChange={languageChange}
+            parentViewStyle={styles.halfFieldContainer}
+            labelText="From"
+          />
+          <SearchableDropdown
+            itemList={yearListReversed}
+            defaultChoice={yearTo}
+            searchPlaceholder="Year To"
+            onItemChange={languageChange}
+            parentViewStyle={styles.halfFieldContainer}
+            labelText="To"
+          />
+        </View>
       </View>
     </>
   );
@@ -73,5 +83,18 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 20,
     marginRight: 20
-  }
+  },
+  fullFieldContainer: {
+    marginTop: 40,
+    marginLeft: 20,
+    marginRight: 20
+  },
+  halfFieldContainer: {
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    width: 100,
+    flexGrow: 1
+  },
+  twoFieldContainer: {}
 });

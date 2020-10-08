@@ -1,5 +1,4 @@
 export const generateYearList = () => {
-  let isReversed = false;
   // Creates an array of genres in order to populate the dropdown lists
   let currentYear = new Date().getFullYear();
   let firstYear = 1920;
@@ -8,7 +7,7 @@ export const generateYearList = () => {
   for (let i = firstYear; i <= currentYear; i++) {
     years.push({ key: `${i}`, label: `${i}`, value: `${i}` });
   }
-  return isReversed ? years.reversed() : years;
+  return years;
 };
 
 export const languageList = [
