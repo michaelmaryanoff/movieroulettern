@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
@@ -7,76 +7,84 @@ const languageArray = [
   {
     key: 'en',
     value: 'en',
-    text: 'English'
+    label: 'English'
   },
   {
     key: 'es',
     value: 'es',
-    text: 'Spanish'
+    label: 'Spanish'
   },
   {
     key: 'pt',
     value: 'pt',
-    text: 'Portuguese'
+    label: 'Portuguese'
   },
   {
     key: 'zh',
     value: 'zh',
-    text: 'Chinese'
+    label: 'Chinese'
   },
   {
     key: 'fr',
     value: 'fr',
-    text: 'French'
+    label: 'French'
   },
   {
     key: 'it',
     value: 'it',
-    text: 'Italian'
+    label: 'Italian'
   },
   {
     key: 'de',
     value: 'de',
-    text: 'German'
+    label: 'German'
   },
   {
     key: 'nl',
     value: 'nl',
-    text: 'Dutch'
+    label: 'Dutch'
   },
   {
     key: 'sv',
     value: 'sv',
-    text: 'Swedish'
+    label: 'Swedish'
   },
   {
     key: 'ru',
     value: 'ru',
-    text: 'Russian'
+    label: 'Russian'
   },
   {
     key: 'hi',
     value: 'hi',
-    text: 'Hindi'
+    label: 'Hindi'
   },
   {
     key: 'ja',
     value: 'ja',
-    text: 'Japanese'
+    label: 'Japanese'
   },
   {
     key: 'ko',
     value: 'ko',
-    text: 'Korean'
+    label: 'Korean'
   }
 ];
 
 const SpinScreen = () => {
   const [language, setLanguage] = useState('english');
 
-  const langaugeChange = (itemValue, itemIntex) => {
+  const languageChange = (itemValue, itemIntex) => {
     setLanguage(itemValue);
   };
+
+  const languagePickerItems = () => {
+    return languageArray.map(({ value, label }) => {
+      return <Picker.Item label={label} value={value} key={value} />;
+    });
+  };
+
+  console.log('language: ', language);
 
   return (
     <>
@@ -89,9 +97,8 @@ const SpinScreen = () => {
           width: '50%'
         }}
       >
-        <Picker selectedValue={language} onValueChange={langaugeChange}>
-          <Picker.Item label="English" value="en" />
-          <Picker.Item label="Spanish" value="es" />
+        <Picker selectedValue={language} onValueChange={languageChange}>
+          {languagePickerItems()}
         </Picker>
       </View>
     </>
