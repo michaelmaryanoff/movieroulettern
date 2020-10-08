@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const languageArray = [
+const languageList = [
   {
     key: 'en',
     value: 'en',
@@ -72,34 +73,23 @@ const languageArray = [
 ];
 
 const SpinScreen = () => {
-  const [language, setLanguage] = useState('english');
+  const [language, setLanguage] = useState('en');
 
-  const languageChange = (itemValue, itemIntex) => {
-    setLanguage(itemValue);
+  const languageChange = ({ label, value }) => {
+    setLanguage(value);
   };
-
-  const languagePickerItems = () => {
-    return languageArray.map(({ value, label }) => {
-      return <Picker.Item label={label} value={value} key={value} />;
-    });
-  };
-
-  console.log('language: ', language);
 
   return (
     <>
-      <Text>SpinScreen</Text>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: 'red',
-          borderRadius: 4,
-          width: '50%'
-        }}
-      >
-        <Picker selectedValue={language} onValueChange={languageChange}>
-          {languagePickerItems()}
-        </Picker>
+      <View style={styles.parentContainer}>
+        <Text>Language</Text>
+        <DropDownPicker
+          items={languageList}
+          defaultValue={language}
+          onChangeItem={languageChange}
+          containerStyle={{ height: 40 }}
+          style={{ backgroundColor: '#fafafa' }}
+        />
       </View>
     </>
   );
@@ -107,4 +97,11 @@ const SpinScreen = () => {
 
 export default SpinScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  parentContainer: {
+    borderWidth: 1,
+    borderColor: 'red',
+    borderRadius: 4,
+    width: '80%'
+  }
+});
