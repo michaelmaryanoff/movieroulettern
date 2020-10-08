@@ -23,8 +23,8 @@ const SpinScreen = () => {
     { label: yearTo, value: yearTo }
   ]);
 
-  const languageChange = ({ label, value }) => {
-    // setLanguage(value);
+  const languageChange = (event, setStateKey) => {
+    console.log('event: ', event);
   };
 
   useEffect(() => {
@@ -33,8 +33,6 @@ const SpinScreen = () => {
     const reversedYearList = generateYearList().reverse();
     setYearListReversed(reversedYearList);
   }, []);
-
-  console.log('yearListReversed: ', yearListReversed);
 
   return (
     <>
@@ -46,15 +44,19 @@ const SpinScreen = () => {
           onItemChange={languageChange}
           parentViewStyle={styles.lanaguageContainer}
           labelText="Langauge"
+          setStateKey="setLanguage"
         />
         <View style={{ flexDirection: 'row' }}>
           <SearchableDropdown
             itemList={yearList}
             defaultChoice={yearFrom}
             searchPlaceholder="Year From"
-            onItemChange={languageChange}
+            onItemChange={(event, setStateKey) =>
+              languageChange(event, setStateKey)
+            }
             parentViewStyle={styles.halfFieldContainer}
             labelText="From"
+            setStateKey="setYearFrom"
           />
           <SearchableDropdown
             itemList={yearListReversed}
