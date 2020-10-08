@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import SearchableDropdown from '../components/SearchableDropdown';
 
 const languageList = [
   {
@@ -82,13 +83,23 @@ const SpinScreen = () => {
   return (
     <>
       <View style={styles.parentContainer}>
-        <Text>Language</Text>
-        <DropDownPicker
+        <SearchableDropdown
+          items={languageList}
+          searchablePlaceholder="Find a language"
           items={languageList}
           defaultValue={language}
           onChangeItem={languageChange}
-          containerStyle={{ height: 40 }}
-          style={{ backgroundColor: '#fafafa' }}
+          parentViewStyle={styles.lanaguageContainer}
+          labelText="Langauge"
+        />
+        <SearchableDropdown
+          items={languageList}
+          searchablePlaceholder="Find a language"
+          items={languageList}
+          defaultValue={language}
+          onChangeItem={languageChange}
+          parentViewStyle={styles.lanaguageContainer}
+          labelText="Langauge"
         />
       </View>
     </>
@@ -102,6 +113,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'red',
     borderRadius: 4,
-    width: '80%'
+    flex: 1
+  },
+  lanaguageContainer: {
+    marginTop: 40,
+    marginLeft: 20,
+    marginRight: 20
   }
 });
