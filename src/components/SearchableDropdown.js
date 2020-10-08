@@ -3,26 +3,27 @@ import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const SearchableDropdown = ({
-  searchablePlaceholder,
-  items,
-  defaultValue,
-  onChangeItem,
+  searchPlaceholder,
+  itemList,
+  defaultChoice,
+  onItemChange,
   parentViewStyle,
-  labelStyle,
-  labelText
+  labelText,
+  z
 }) => {
   return (
     <View style={parentViewStyle}>
       <Text style={styles.itemLabel}>{labelText}</Text>
       <DropDownPicker
-        searchablePlaceholder={searchablePlaceholder}
+        searchablePlaceholder={searchPlaceholder}
         searchable
         searchableError={() => <Text>No results</Text>}
-        items={items}
-        defaultValue={defaultValue}
-        onChangeItem={onChangeItem}
+        items={itemList}
+        defaultValue={defaultChoice}
+        onChangeItem={onItemChange}
         containerStyle={{ height: 40 }}
         style={{ backgroundColor: '#fafafa' }}
+        zIndex={z}
       />
     </View>
   );

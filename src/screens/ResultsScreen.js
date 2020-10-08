@@ -12,3 +12,4 @@ const ResultsScreen = () => {
 export default ResultsScreen;
 
 const styles = StyleSheet.create({});
+
