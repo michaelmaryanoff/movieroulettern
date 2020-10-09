@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import SearchableDropdown from '../components/SearchableDropdown';
 import {
   generateYearList,
@@ -52,16 +53,18 @@ const SpinScreen = () => {
   return (
     <>
       <View style={styles.parentContainer}>
-        <SearchableDropdown
-          itemList={languageList}
-          searchPlaceholder="Find a language"
-          defaultChoice={language}
-          onItemChange={onDropdownChange}
-          parentViewStyle={styles.lanaguageContainer}
-          labelText="Langauge"
-          setStateKey="language"
-        />
-        <View style={{ flexDirection: 'row', zIndex: 2 }}>
+        <View style={{ zIndex: 4 }}>
+          <SearchableDropdown
+            itemList={languageList}
+            searchPlaceholder="Find a language"
+            defaultChoice={language}
+            onItemChange={onDropdownChange}
+            parentViewStyle={styles.lanaguageContainer}
+            labelText="Langauge"
+            setStateKey="language"
+          />
+        </View>
+        <View style={{ flexDirection: 'row', zIndex: 3 }}>
           <SearchableDropdown
             itemList={yearList}
             defaultChoice={yearFrom}
@@ -83,7 +86,7 @@ const SpinScreen = () => {
             setStateKey="yearTo"
           />
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', zIndex: 2 }}>
           <SearchableDropdown
             itemList={ratingList}
             defaultChoice={rating}
@@ -105,6 +108,7 @@ const SpinScreen = () => {
             setStateKey="genre"
           />
         </View>
+        <Button style={styles.buttonStyle} title="Spin" />
       </View>
     </>
   );
@@ -137,5 +141,10 @@ const styles = StyleSheet.create({
     width: 100,
     flexGrow: 1
   },
-  twoFieldContainer: {}
+  buttonStyle: {
+    marginTop: 40,
+    marginLeft: 20,
+    marginRight: 20,
+    zIndex: 1
+  }
 });
