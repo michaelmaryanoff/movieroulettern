@@ -1,6 +1,9 @@
+// React
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-elements';
+
+// Components and constants
 import SearchableDropdown from '../components/SearchableDropdown';
 import {
   generateYearList,
@@ -8,7 +11,11 @@ import {
   generateRatingList,
   tempGenreList
 } from '../dropdownArrays';
+
+// Dependencies
 import { withNavigation } from 'react-navigation';
+import { useDispatch } from 'react-redux';
+import { spinningStarted, submitSpin, spinningCompleted } from '../actions';
 
 const initialState = {
   language: 'en',
@@ -19,6 +26,7 @@ const initialState = {
 };
 
 const SpinScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [{ language, yearFrom, yearTo, rating, genre }, setState] = useState(
     initialState
   );
@@ -50,6 +58,18 @@ const SpinScreen = ({ navigation }) => {
     const ratingArray = generateRatingList();
     setRatingList(ratingArray);
   }, []);
+
+  handleSpin = () => {
+    const submissionObject = {
+      yearFrom,
+      yearTo,
+      rating,
+      genre,
+      language
+    };
+    dispatch(submitSpin(submissionObject));
+    navigation.navigate('Results');
+  };
 
   return (
     <>
@@ -111,7 +131,7 @@ const SpinScreen = ({ navigation }) => {
         </View>
         <Button
           onPress={() => {
-            navigation.navigate('Results');
+            handleSpin();
           }}
           style={styles.buttonStyle}
           title="Spin"
