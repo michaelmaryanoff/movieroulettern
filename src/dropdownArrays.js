@@ -10,6 +10,17 @@ export const generateYearList = () => {
   return years;
 };
 
+export const generateRatingList = () => {
+  // Creates an indexed array for ratings.
+  // TMDB expects an integer
+  let ratingsArray = [];
+
+  for (let i = 1; i <= 10; i++) {
+    ratingsArray.push({ key: `${i}`, value: `${i}`, label: `${i} / 10` });
+  }
+  return ratingsArray;
+};
+
 export const languageList = [
   {
     key: 'en',
