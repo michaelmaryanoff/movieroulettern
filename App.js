@@ -5,6 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import SpinScreen from './src/screens/SpinScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
 
+import { setNavigator } from './src/navigationWrapper';
+
 const navigator = createStackNavigator(
   {
     Spin: SpinScreen,
@@ -18,4 +20,14 @@ const navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(navigator);
+const App = createAppContainer(navigator);
+
+export default () => {
+  return (
+    <App
+      ref={navigator => {
+        setNavigator(navigator);
+      }}
+    />
+  );
+};

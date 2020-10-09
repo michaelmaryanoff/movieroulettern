@@ -8,6 +8,7 @@ import {
   generateRatingList,
   tempGenreList
 } from '../dropdownArrays';
+import { withNavigation } from 'react-navigation';
 
 const initialState = {
   language: 'en',
@@ -17,7 +18,7 @@ const initialState = {
   genre: '28'
 };
 
-const SpinScreen = () => {
+const SpinScreen = ({ navigation }) => {
   const [{ language, yearFrom, yearTo, rating, genre }, setState] = useState(
     initialState
   );
@@ -108,13 +109,19 @@ const SpinScreen = () => {
             setStateKey="genre"
           />
         </View>
-        <Button style={styles.buttonStyle} title="Spin" />
+        <Button
+          onPress={() => {
+            navigation.navigate('Results');
+          }}
+          style={styles.buttonStyle}
+          title="Spin"
+        />
       </View>
     </>
   );
 };
 
-export default SpinScreen;
+export default withNavigation(SpinScreen);
 
 const styles = StyleSheet.create({
   parentContainer: {
