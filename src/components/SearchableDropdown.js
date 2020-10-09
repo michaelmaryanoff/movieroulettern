@@ -9,7 +9,8 @@ const SearchableDropdown = ({
   onItemChange,
   parentViewStyle,
   labelText,
-  setStateKey
+  setStateKey,
+  z
 }) => {
   return (
     <View style={parentViewStyle}>
@@ -21,10 +22,9 @@ const SearchableDropdown = ({
         items={itemList}
         defaultValue={defaultChoice}
         onChangeItem={event => {
-          console.log(setStateKey);
-
           onItemChange(event, setStateKey);
         }}
+        zIndex={z}
         containerStyle={{ height: 40 }}
         style={{ backgroundColor: '#fafafa' }}
       />

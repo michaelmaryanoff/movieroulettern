@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, Button, Input } from 'react-native-elements';
-import { Picker } from '@react-native-community/picker';
-import DropDownPicker from 'react-native-dropdown-picker';
 import SearchableDropdown from '../components/SearchableDropdown';
-import { generateYearList, languageList } from '../dropdownArrays';
+import {
+  generateYearList,
+  languageList,
+  generateRatingList,
+  tempGenreList
+} from '../dropdownArrays';
 
 const initialState = {
+  language: 'en',
   yearFrom: '1955',
-  yearTo: '2020'
+  yearTo: '2020',
+  rating: '1',
+  genre: '28'
 };
 
 const SpinScreen = () => {
-  const [language, setLanguage] = useState('en');
-  const [yearFrom, setYearFrom] = useState(initialState.yearFrom);
-  const [yearTo, setYearTo] = useState(initialState.yearTo);
+  const [{ language, yearFrom, yearTo, rating, genre }, setState] = useState(
+    initialState
+  );
 
   const [yearList, setYearList] = useState([
     { label: yearFrom, value: yearFrom }
@@ -23,15 +28,25 @@ const SpinScreen = () => {
     { label: yearTo, value: yearTo }
   ]);
 
-  const languageChange = (event, setStateKey) => {
-    console.log('event: ', event);
+  const [ratingList, setRatingList] = useState([
+    { label: '1 / 10', value: rating }
+  ]);
+
+  const onDropdownChange = ({ label, value }, setStateKey) => {
+    setState(prevState => {
+      return { ...prevState, [setStateKey]: value };
+    });
   };
 
   useEffect(() => {
     const years = generateYearList();
     setYearList(years);
+
     const reversedYearList = generateYearList().reverse();
     setYearListReversed(reversedYearList);
+
+    const ratingArray = generateRatingList();
+    setRatingList(ratingArray);
   }, []);
 
   return (
@@ -41,30 +56,53 @@ const SpinScreen = () => {
           itemList={languageList}
           searchPlaceholder="Find a language"
           defaultChoice={language}
-          onItemChange={languageChange}
+          onItemChange={onDropdownChange}
           parentViewStyle={styles.lanaguageContainer}
           labelText="Langauge"
-          setStateKey="setLanguage"
+          setStateKey="language"
         />
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', zIndex: 2 }}>
           <SearchableDropdown
             itemList={yearList}
             defaultChoice={yearFrom}
             searchPlaceholder="Year From"
             onItemChange={(event, setStateKey) =>
-              languageChange(event, setStateKey)
+              onDropdownChange(event, setStateKey)
             }
             parentViewStyle={styles.halfFieldContainer}
             labelText="From"
-            setStateKey="setYearFrom"
+            setStateKey="yearFrom"
           />
           <SearchableDropdown
             itemList={yearListReversed}
             defaultChoice={yearTo}
             searchPlaceholder="Year To"
-            onItemChange={languageChange}
+            onItemChange={onDropdownChange}
             parentViewStyle={styles.halfFieldContainer}
             labelText="To"
+            setStateKey="yearTo"
+          />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <SearchableDropdown
+            itemList={ratingList}
+            defaultChoice={rating}
+            searchPlaceholder="Minimum rating"
+            onItemChange={(event, setStateKey) =>
+              onDropdownChange(event, setStateKey)
+            }
+            parentViewStyle={styles.halfFieldContainer}
+            labelText="Rating"
+            setStateKey="rating"
+          />
+          <SearchableDropdown
+            itemList={tempGenreList}
+            defaultChoice={genre}
+            searchPlaceholder="Select genre"
+            onItemChange={onDropdownChange}
+            parentViewStyle={styles.halfFieldContainer}
+            labelText="Genres"
+            setStateKey="genre"
           />
         </View>
       </View>
@@ -84,7 +122,8 @@ const styles = StyleSheet.create({
   lanaguageContainer: {
     marginTop: 40,
     marginLeft: 20,
-    marginRight: 20
+    marginRight: 20,
+    zIndex: 3
   },
   fullFieldContainer: {
     marginTop: 40,
