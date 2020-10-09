@@ -1,35 +1,33 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 
 const SpinCard = () => {
+  const {
+    original_title,
+    poster_path,
+    overview,
+    release_date,
+    vote_average
+  } = useSelector(state => state.selectedMovie);
+
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center'
-      }}
-    >
-      <Card styles={{ justifyContent: 'center', alignContent: 'center' }}>
-        <Card.Title>The Windermere Children</Card.Title>
-        <Card.FeaturedSubtitle styles={styles.subtitleStyle}>
-          Featured title
-        </Card.FeaturedSubtitle>
+    <View>
+      <Card wrapperStyle={styles.container}>
+        <Card.Title h2>{original_title}</Card.Title>
         <Card.Divider />
         <Card.Image
           style={styles.posterStyle}
           source={{
-            uri:
-              'https://image.tmdb.org/t/p/original/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg'
+            uri: `https://image.tmdb.org/t/p/original${poster_path}`
           }}
         />
-
-        <Text>
-          The story of the pioneering project to rehabilitate child survivors of
-          the Holocaust on the shores of Lake Windermere.
+        <Text style={styles.descriptionStyle}>
+          Average score {vote_average}
         </Text>
+        <Text style={styles.descriptionStyle}>Released {release_date}</Text>
+        <Text style={styles.descriptionStyle}>{overview}</Text>
       </Card>
     </View>
   );
@@ -41,10 +39,13 @@ const styles = StyleSheet.create({
   posterStyle: {
     width: 200,
     height: 300,
-    alignSelf: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  subtitleStyle: {
-    height: 20,
-    fontWeight: 'bold'
+  descriptionStyle: {
+    marginTop: 20
+  },
+  container: {
+    alignItems: 'center'
   }
 });

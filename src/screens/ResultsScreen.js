@@ -4,8 +4,7 @@ import SpinCard from '../components/SpinCard';
 
 const ResultsScreen = () => {
   return (
-    <View>
-      <Text>ResultsScreen</Text>
+    <View style={styles.container}>
       <SpinCard />
     </View>
   );
@@ -13,4 +12,10 @@ const ResultsScreen = () => {
 
 export default ResultsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
