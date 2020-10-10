@@ -68,6 +68,7 @@ const SpinScreen = ({ navigation }) => {
       language
     };
     dispatch(submitSpin(submissionObject));
+    console.log('submissionObject: ', submissionObject);
     navigation.navigate('Results');
   };
 
