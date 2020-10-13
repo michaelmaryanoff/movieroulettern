@@ -49,7 +49,6 @@ export const submitSpin = ({
     'primary_release_date.lte': dateTo,
     with_original_language: languageInput
   };
-  console.log('paramsObject: ', paramsObject);
 
   //! This object is only used for testing purposes, it purposely formats
   //! An incorrect response. Used for testing situations where no
@@ -96,7 +95,6 @@ export const submitSpin = ({
   const randomIndex = Math.floor(Math.random() * length);
 
   const selectedMovie = movieResponse.data.results[randomIndex];
-  console.log('selectedMovie: ', selectedMovie);
 
   dispatch({ type: SUBMIT_SPIN, payload: selectedMovie });
 };

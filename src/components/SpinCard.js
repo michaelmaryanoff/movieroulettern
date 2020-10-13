@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 
+const initialState = {
+  originalTitle: 'Loading...',
+  // TODO: this will need to be a path to a placeholder
+  posterPath: '',
+  movieOverview: 'Loading...',
+  releaseDate: 'Loading...',
+  voteAverage: 'Loading...'
+};
+
 const SpinCard = () => {
+  const [
+    { originalTitle, posterPath, movieOverview, releaseDate, voteAverage },
+    setState
+  ] = useState(initialState);
+
   const {
     original_title,
     poster_path,
@@ -11,6 +25,10 @@ const SpinCard = () => {
     release_date,
     vote_average
   } = useSelector(state => state.selectedMovie);
+
+  useEffect(() => {
+    console.log('uEffect');
+  }, []);
 
   return (
     <View>
