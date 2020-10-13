@@ -1,13 +1,13 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
 import { Card, Button } from 'react-native-elements';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { spinAgain } from '../actions';
 
 // Assets
@@ -15,7 +15,6 @@ const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
 
 const initialState = {
   originalTitle: 'Loading...',
-  // TODO: this will need to be a path to a placeholder
   posterPath: '',
   movieOverview: 'Loading...',
   releaseDate: 'Loading...',

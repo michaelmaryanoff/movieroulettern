@@ -5,7 +5,9 @@ import {
   IS_FETCHING_GENRES,
   SUBMIT_SPIN,
   IS_SPINNING,
-  SAVE_SELECTION
+  SAVE_SELECTION,
+  START_SPINNING,
+  STOP_SPINNING
 } from './actionTypes';
 
 // Api
@@ -38,6 +40,7 @@ export const submitSpin = ({
   language,
   genre
 }) => async (dispatch, getState) => {
+  dispatch(startSpinning());
   const { dateFrom, dateTo } = generateDateString(yearFrom, yearTo);
 
   const selection = {
@@ -113,6 +116,7 @@ export const submitSpin = ({
   const selectedMovie = movieResponse.data.results[randomIndex];
 
   dispatch({ type: SUBMIT_SPIN, payload: selectedMovie });
+  dispatch(stopSpinning());
 };
 
 export const spinningStarted = () => {
@@ -129,4 +133,11 @@ export const fetchGenresStarted = () => {
 
 export const fetchGenresCompleted = () => {
   return { type: IS_FETCHING_GENRES, payload: false };
+};
+
+export const startSpinning = () => {
+  return { type: START_SPINNING };
+};
+export const stopSpinning = () => {
+  return { type: STOP_SPINNING };
 };

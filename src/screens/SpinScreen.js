@@ -15,7 +15,7 @@ import {
 // Dependencies
 import { withNavigation } from 'react-navigation';
 import { useDispatch } from 'react-redux';
-import { spinningStarted, submitSpin, spinningCompleted } from '../actions';
+import { submitSpin } from '../actions';
 
 const initialState = {
   language: 'en',
@@ -139,9 +139,6 @@ export default withNavigation(SpinScreen);
 
 const styles = StyleSheet.create({
   parentContainer: {
-    borderWidth: 1,
-    borderColor: 'red',
-    borderRadius: 4,
     flex: 1
   },
   lanaguageContainer: {

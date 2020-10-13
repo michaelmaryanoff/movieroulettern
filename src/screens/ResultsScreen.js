@@ -1,11 +1,23 @@
+// React
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+
+// Components
 import ResultsCard from '../components/ResultsCard';
 
 const ResultsScreen = () => {
+  const isSpinning = useSelector(state => state.isSpinning);
+
   return (
     <View style={styles.container}>
-      <ResultsCard />
+      {isSpinning ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
+        <ResultsCard />
+      )}
     </View>
   );
 };
