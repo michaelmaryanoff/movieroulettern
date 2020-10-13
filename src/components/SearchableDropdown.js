@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 10,
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'white'
   }
 });

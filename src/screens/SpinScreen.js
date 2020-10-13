@@ -11,6 +11,7 @@ import {
   generateRatingList,
   tempGenreList
 } from '../dropdownArrays';
+import { darkBlue, lightRed } from '../styling/colors';
 
 // Dependencies
 import { withNavigation } from 'react-navigation';
@@ -129,7 +130,12 @@ const SpinScreen = ({ navigation }) => {
             setStateKey="genre"
           />
         </View>
-        <Button onPress={handleSpin} style={styles.buttonStyle} title="Spin" />
+        <Button
+          onPress={handleSpin}
+          style={styles.buttonStyle}
+          buttonStyle={{ backgroundColor: lightRed }}
+          title="Spin"
+        />
       </View>
     </>
   );
@@ -139,7 +145,8 @@ export default withNavigation(SpinScreen);
 
 const styles = StyleSheet.create({
   parentContainer: {
-    flex: 1
+    flex: 1,
+    backgroundColor: darkBlue
   },
   lanaguageContainer: {
     marginTop: 40,
@@ -163,6 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 20,
     marginRight: 20,
-    zIndex: 1
+    zIndex: 1,
+    color: lightRed
   }
 });
