@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
@@ -18,34 +18,45 @@ const SpinCard = () => {
     setState
   ] = useState(initialState);
 
-  const {
-    original_title,
-    poster_path,
-    overview,
-    release_date,
-    vote_average
-  } = useSelector(state => state.selectedMovie);
+  const selectedMovie = useSelector(state => state.selectedMovie);
 
   useEffect(() => {
-    console.log('uEffect');
-  }, []);
+    if (selectedMovie) {
+      const {
+        original_title,
+        poster_path,
+        overview,
+        release_date,
+        vote_average
+      } = selectedMovie;
+
+      setState(prevState => {
+        return {
+          ...prevState,
+          originalTitle: original_title || '',
+          posterPath: poster_path || '',
+          movieOverview: overview || '',
+          releaseDate: release_date || '',
+          voteAverage: vote_average || ''
+        };
+      });
+    }
+  }, [selectedMovie]);
 
   return (
     <View>
       <Card wrapperStyle={styles.container}>
-        <Card.Title h2>{original_title}</Card.Title>
+        <Card.Title h2>{originalTitle}</Card.Title>
         <Card.Divider />
         <Card.Image
           style={styles.posterStyle}
           source={{
-            uri: `https://image.tmdb.org/t/p/original${poster_path}`
+            uri: `https://image.tmdb.org/t/p/original${posterPath}`
           }}
         />
-        <Text style={styles.descriptionStyle}>
-          Average score {vote_average}
-        </Text>
-        <Text style={styles.descriptionStyle}>Released {release_date}</Text>
-        <Text style={styles.descriptionStyle}>{overview}</Text>
+        <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
+        <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
+        <Text style={styles.descriptionStyle}>{movieOverview}</Text>
       </Card>
     </View>
   );
