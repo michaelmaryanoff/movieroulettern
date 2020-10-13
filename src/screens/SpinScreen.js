@@ -129,13 +129,7 @@ const SpinScreen = ({ navigation }) => {
             setStateKey="genre"
           />
         </View>
-        <Button
-          onPress={() => {
-            handleSpin();
-          }}
-          style={styles.buttonStyle}
-          title="Spin"
-        />
+        <Button onPress={handleSpin} style={styles.buttonStyle} title="Spin" />
       </View>
     </>
   );

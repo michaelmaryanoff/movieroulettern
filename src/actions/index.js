@@ -50,8 +50,6 @@ export const submitSpin = ({
 
   dispatch({ type: SAVE_SELECTION, payload: selection });
 
-  const state = getState();
-
   let languageInput = language;
   let genreInput = genre;
 
