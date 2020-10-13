@@ -18,6 +18,7 @@ import { generateDateString } from '../helpers';
 
 export const getGenreCodes = () => async dispatch => {
   dispatch(fetchGenresStarted());
+
   const { data } = await tmdbClient.get('/genre/movie/list', {
     params: { api_key: apiKey }
   });

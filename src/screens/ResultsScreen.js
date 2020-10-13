@@ -7,17 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import ResultsCard from '../components/ResultsCard';
+import LoadingCard from '../components/LoadingCard';
 
 const ResultsScreen = () => {
   const isSpinning = useSelector(state => state.isSpinning);
 
   return (
     <View style={styles.container}>
-      {isSpinning ? (
-        <ActivityIndicator size="large" color="#00ff00" />
-      ) : (
-        <ResultsCard />
-      )}
+      {isSpinning ? <LoadingCard /> : <ResultsCard />}
     </View>
   );
 };
