@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
 
 const initialState = {
@@ -20,6 +21,7 @@ const SpinCard = () => {
   ] = useState(initialState);
 
   const selectedMovie = useSelector(state => state.selectedMovie);
+  console.log('selectedMovie: ', selectedMovie);
 
   useEffect(() => {
     if (selectedMovie) {
@@ -51,16 +53,16 @@ const SpinCard = () => {
   );
 
   return (
-    <View>
+    <ScrollView>
       <Card wrapperStyle={styles.container}>
-        <Card.Title h2>{originalTitle}</Card.Title>
+        <Card.Title h3>{originalTitle}</Card.Title>
         <Card.Divider />
         {cardImage}
         <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
         <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
         <Text style={styles.descriptionStyle}>{movieOverview}</Text>
       </Card>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   container: {
-    alignItems: 'center'
+    alignItems: 'center',
+    width: 300
   }
 });
