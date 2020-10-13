@@ -4,7 +4,8 @@ import {
   GENRE_DROPDOWN_DATA_SOURCE,
   IS_FETCHING_GENRES,
   SUBMIT_SPIN,
-  IS_SPINNING
+  IS_SPINNING,
+  SAVE_SELECTION
 } from './actionTypes';
 
 // Api
@@ -25,14 +26,31 @@ export const getGenreCodes = () => async dispatch => {
   dispatch({ type: GENRE_DROPDOWN_DATA_SOURCE, payload: data.genres });
 };
 
+export const spinAgain = () => async (dispatch, getState) => {
+  const { selection } = getState();
+  dispatch(submitSpin(selection));
+};
+
 export const submitSpin = ({
-  minimumRating,
+  rating,
   yearFrom,
   yearTo,
   language,
   genre
-}) => async dispatch => {
+}) => async (dispatch, getState) => {
   const { dateFrom, dateTo } = generateDateString(yearFrom, yearTo);
+
+  const selection = {
+    rating,
+    yearFrom,
+    yearTo,
+    language,
+    genre
+  };
+
+  dispatch({ type: SAVE_SELECTION, payload: selection });
+
+  const state = getState();
 
   let languageInput = language;
   let genreInput = genre;
@@ -42,7 +60,7 @@ export const submitSpin = ({
     include_adult: false,
     language: 'en-US',
     sort_by: 'popularity.desc',
-    'vote_average.gte': minimumRating,
+    'vote_average.gte': rating,
     page: 1,
     with_genres: genreInput,
     'primary_release_date.gte': dateFrom,

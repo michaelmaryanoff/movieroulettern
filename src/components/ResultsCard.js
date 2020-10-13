@@ -1,8 +1,16 @@
+// React
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
-import { Card } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+
+// Outside libraries
+import { Card, Button } from 'react-native-elements';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { spinAgain } from '../actions';
+
+// Assets
 const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
 
 const initialState = {
@@ -14,14 +22,15 @@ const initialState = {
   voteAverage: 'Loading...'
 };
 
-const SpinCard = () => {
+const ResultsCard = () => {
+  const dispatch = useDispatch();
+
   const [
     { originalTitle, posterPath, movieOverview, releaseDate, voteAverage },
     setState
   ] = useState(initialState);
 
   const selectedMovie = useSelector(state => state.selectedMovie);
-  console.log('selectedMovie: ', selectedMovie);
 
   useEffect(() => {
     if (selectedMovie) {
@@ -46,6 +55,10 @@ const SpinCard = () => {
     }
   }, [selectedMovie]);
 
+  handleSpin = () => {
+    dispatch(spinAgain());
+  };
+
   const cardImage = posterPath ? (
     <Card.Image style={styles.posterStyle} source={{ uri: posterPath }} />
   ) : (
@@ -53,7 +66,7 @@ const SpinCard = () => {
   );
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollView}>
       <Card wrapperStyle={styles.container}>
         <Card.Title h3>{originalTitle}</Card.Title>
         <Card.Divider />
@@ -61,12 +74,23 @@ const SpinCard = () => {
         <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
         <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
         <Text style={styles.descriptionStyle}>{movieOverview}</Text>
+        <Button
+          onPress={() => {
+            handleSpin();
+          }}
+          buttonStyle={{
+            marginTop: 10,
+            marginBottom: 10,
+            width: '100%'
+          }}
+          title="Spin again!"
+        />
       </Card>
     </ScrollView>
   );
 };
 
-export default SpinCard;
+export default ResultsCard;
 
 const styles = StyleSheet.create({
   posterStyle: {
@@ -81,5 +105,14 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     width: 300
+  },
+  buttonStyle: {
+    marginTop: 40,
+    marginLeft: 20,
+    marginRight: 20,
+    zIndex: 1
+  },
+  scrollView: {
+    paddingBottom: 10
   }
 });

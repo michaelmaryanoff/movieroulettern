@@ -3,13 +3,21 @@ import {
   GENRE_DROPDOWN_DATA_SOURCE,
   IS_FETCHING_GENRES,
   SUBMIT_SPIN,
-  IS_SPINNING
+  IS_SPINNING,
+  SAVE_SELECTION
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   isSpinning: false,
 
-  isFetchingGenres: true
+  isFetchingGenres: true,
+  selection: {
+    genre: '28',
+    language: 'en',
+    rating: '1',
+    yearFrom: '1955',
+    yearTo: '2020'
+  }
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, genreDropdownDataSource: action.payload };
     case IS_FETCHING_GENRES:
       return { ...state, isFetchingGenres: action.payload };
+    case SAVE_SELECTION:
+      return { ...state, selection: action.payload };
     default:
       return state;
   }

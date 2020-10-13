@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SpinCard from '../components/SpinCard';
+import ResultsCard from '../components/ResultsCard';
 
 const ResultsScreen = () => {
   return (
     <View style={styles.container}>
-      <SpinCard />
+      <ResultsCard />
     </View>
   );
 };
