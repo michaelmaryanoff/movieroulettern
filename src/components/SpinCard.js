@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
+const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
 
 const initialState = {
   originalTitle: 'Loading...',
@@ -34,7 +35,7 @@ const SpinCard = () => {
         return {
           ...prevState,
           originalTitle: original_title || '',
-          posterPath: poster_path || '',
+          posterPath: `https://image.tmdb.org/t/p/original${poster_path}` || '',
           movieOverview: overview || '',
           releaseDate: release_date || '',
           voteAverage: vote_average || ''
@@ -43,17 +44,18 @@ const SpinCard = () => {
     }
   }, [selectedMovie]);
 
+  const cardImage = posterPath ? (
+    <Card.Image style={styles.posterStyle} source={{ uri: posterPath }} />
+  ) : (
+    <Card.Image style={styles.posterStyle} source={reelLogoPlaceHolder} />
+  );
+
   return (
     <View>
       <Card wrapperStyle={styles.container}>
         <Card.Title h2>{originalTitle}</Card.Title>
         <Card.Divider />
-        <Card.Image
-          style={styles.posterStyle}
-          source={{
-            uri: `https://image.tmdb.org/t/p/original${posterPath}`
-          }}
-        />
+        {cardImage}
         <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
         <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
         <Text style={styles.descriptionStyle}>{movieOverview}</Text>
