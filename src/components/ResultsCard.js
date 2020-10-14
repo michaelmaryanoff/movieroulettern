@@ -46,7 +46,7 @@ const ResultsCard = () => {
         return {
           ...prevState,
           originalTitle: original_title || '',
-          posterPath: `https://image.tmdb.org/t/p/original${poster_path}` || '',
+          posterPath: poster_path || '',
           movieOverview: overview || '',
           releaseDate: release_date || '',
           voteAverage: vote_average || ''
@@ -60,7 +60,10 @@ const ResultsCard = () => {
   };
 
   const cardImage = posterPath ? (
-    <Card.Image style={styles.posterStyle} source={{ uri: posterPath }} />
+    <Card.Image
+      style={styles.posterStyle}
+      source={{ uri: `https://image.tmdb.org/t/p/original${posterPath}` }}
+    />
   ) : (
     <Card.Image style={styles.posterStyle} source={reelLogoPlaceHolder} />
   );
