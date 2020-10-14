@@ -68,6 +68,8 @@ const ResultsCard = () => {
   return (
     <View>
       <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           alignItems: 'center',
           justifyContent: 'center'
