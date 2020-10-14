@@ -10,7 +10,7 @@ import ResultsCard from '../components/ResultsCard';
 import LoadingCard from '../components/LoadingCard';
 
 // Constants
-import { lightBlue } from '../styling/colors';
+import { lightBlue, darkBlue } from '../styling/colors';
 
 const ResultsScreen = () => {
   const isSpinning = useSelector(state => state.isSpinning);
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: lightBlue
+    backgroundColor: darkBlue
   }
 });

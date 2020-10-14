@@ -9,7 +9,7 @@ import { Card, Button } from 'react-native-elements';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { spinAgain } from '../actions';
-import { lightBlue, darkBlue } from '../styling/colors';
+import { lightBlue, darkBlue, lightRed } from '../styling/colors';
 
 // Assets
 const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
@@ -71,7 +71,9 @@ const ResultsCard = () => {
         wrapperStyle={styles.cardWrapperStyle}
         containerStyle={styles.cardContainerStyle}
       >
-        <Card.Title h3>{originalTitle}</Card.Title>
+        <Card.Title style={styles.headerStyle} h3>
+          {originalTitle}
+        </Card.Title>
         <Card.Divider />
         {cardImage}
         <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
@@ -84,7 +86,8 @@ const ResultsCard = () => {
           buttonStyle={{
             marginTop: 10,
             marginBottom: 10,
-            width: '100%'
+            width: '100%',
+            backgroundColor: lightRed
           }}
           title="Spin again!"
         />
@@ -103,16 +106,17 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   descriptionStyle: {
-    marginTop: 20
+    marginTop: 20,
+    color: 'white'
   },
   cardContainerStyle: {
     alignItems: 'center',
     width: 300,
-    backgroundColor: 'green',
-    borderColor: 'magenta'
+    backgroundColor: darkBlue,
+    borderColor: darkBlue
   },
   cardWrapperStyle: {
-    backgroundColor: 'yellow',
+    backgroundColor: darkBlue,
     borderColor: 'orange',
     alignItems: 'center'
   },
@@ -124,6 +128,9 @@ const styles = StyleSheet.create({
   },
   scrollViewStyle: {
     paddingBottom: 10,
-    backgroundColor: 'red'
+    backgroundColor: lightBlue
+  },
+  headerStyle: {
+    color: 'white'
   }
 });
