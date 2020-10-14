@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 300,
     backgroundColor: darkBlue,
-    borderColor: darkBlue
+    borderColor: lightBlue,
+    borderWidth: 20
   },
   cardWrapperStyle: {
     backgroundColor: darkBlue,
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   },
   scrollViewStyle: {
     paddingBottom: 10,
-    backgroundColor: lightBlue
+    backgroundColor: darkBlue
   },
   headerStyle: {
     color: 'white'
