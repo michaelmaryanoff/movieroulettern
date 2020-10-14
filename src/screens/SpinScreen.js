@@ -11,7 +11,7 @@ import {
   generateRatingList,
   tempGenreList
 } from '../dropdownArrays';
-import { darkBlue, lightRed } from '../styling/colors';
+import { darkBlue, lightRed, lightBlue } from '../styling/colors';
 
 // Dependencies
 import { withNavigation } from 'react-navigation';
@@ -148,7 +148,7 @@ export default withNavigation(SpinScreen);
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    backgroundColor: darkBlue
+    backgroundColor: lightBlue
   },
   formContainer: {
     marginTop: 100

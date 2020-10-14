@@ -9,6 +9,7 @@ import { Card, Button } from 'react-native-elements';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { spinAgain } from '../actions';
+import { lightBlue, darkBlue } from '../styling/colors';
 
 // Assets
 const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
@@ -65,8 +66,11 @@ const ResultsCard = () => {
   );
 
   return (
-    <ScrollView style={styles.scrollView}>
-      <Card wrapperStyle={styles.container}>
+    <ScrollView style={styles.scrollViewStyle}>
+      <Card
+        wrapperStyle={styles.cardWrapperStyle}
+        containerStyle={styles.cardContainerStyle}
+      >
         <Card.Title h3>{originalTitle}</Card.Title>
         <Card.Divider />
         {cardImage}
@@ -101,9 +105,16 @@ const styles = StyleSheet.create({
   descriptionStyle: {
     marginTop: 20
   },
-  container: {
+  cardContainerStyle: {
     alignItems: 'center',
-    width: 300
+    width: 300,
+    backgroundColor: 'green',
+    borderColor: 'magenta'
+  },
+  cardWrapperStyle: {
+    backgroundColor: 'yellow',
+    borderColor: 'orange',
+    alignItems: 'center'
   },
   buttonStyle: {
     marginTop: 40,
@@ -111,7 +122,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     zIndex: 1
   },
-  scrollView: {
-    paddingBottom: 10
+  scrollViewStyle: {
+    paddingBottom: 10,
+    backgroundColor: 'red'
   }
 });
