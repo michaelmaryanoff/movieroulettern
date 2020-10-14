@@ -75,67 +75,69 @@ const SpinScreen = ({ navigation }) => {
   return (
     <>
       <View style={styles.parentContainer}>
-        <View style={{ zIndex: 4 }}>
-          <SearchableDropdown
-            itemList={languageList}
-            searchPlaceholder="Find a language"
-            defaultChoice={language}
-            onItemChange={onDropdownChange}
-            parentViewStyle={styles.lanaguageContainer}
-            labelText="Langauge"
-            setStateKey="language"
+        <View style={styles.formContainer}>
+          <View style={{ zIndex: 4 }}>
+            <SearchableDropdown
+              itemList={languageList}
+              searchPlaceholder="Find a language"
+              defaultChoice={language}
+              onItemChange={onDropdownChange}
+              parentViewStyle={styles.lanaguageContainer}
+              labelText="Langauge"
+              setStateKey="language"
+            />
+          </View>
+          <View style={{ flexDirection: 'row', zIndex: 3 }}>
+            <SearchableDropdown
+              itemList={yearList}
+              defaultChoice={yearFrom}
+              searchPlaceholder="Year From"
+              onItemChange={(event, setStateKey) =>
+                onDropdownChange(event, setStateKey)
+              }
+              parentViewStyle={styles.halfFieldContainer}
+              labelText="From"
+              setStateKey="yearFrom"
+            />
+            <SearchableDropdown
+              itemList={yearListReversed}
+              defaultChoice={yearTo}
+              searchPlaceholder="Year To"
+              onItemChange={onDropdownChange}
+              parentViewStyle={styles.halfFieldContainer}
+              labelText="To"
+              setStateKey="yearTo"
+            />
+          </View>
+          <View style={{ flexDirection: 'row', zIndex: 2 }}>
+            <SearchableDropdown
+              itemList={ratingList}
+              defaultChoice={rating}
+              searchPlaceholder="Minimum rating"
+              onItemChange={(event, setStateKey) =>
+                onDropdownChange(event, setStateKey)
+              }
+              parentViewStyle={styles.halfFieldContainer}
+              labelText="Rating"
+              setStateKey="rating"
+            />
+            <SearchableDropdown
+              itemList={tempGenreList}
+              defaultChoice={genre}
+              searchPlaceholder="Select genre"
+              onItemChange={onDropdownChange}
+              parentViewStyle={styles.halfFieldContainer}
+              labelText="Genres"
+              setStateKey="genre"
+            />
+          </View>
+          <Button
+            onPress={handleSpin}
+            style={styles.buttonStyle}
+            buttonStyle={{ backgroundColor: lightRed }}
+            title="Spin"
           />
         </View>
-        <View style={{ flexDirection: 'row', zIndex: 3 }}>
-          <SearchableDropdown
-            itemList={yearList}
-            defaultChoice={yearFrom}
-            searchPlaceholder="Year From"
-            onItemChange={(event, setStateKey) =>
-              onDropdownChange(event, setStateKey)
-            }
-            parentViewStyle={styles.halfFieldContainer}
-            labelText="From"
-            setStateKey="yearFrom"
-          />
-          <SearchableDropdown
-            itemList={yearListReversed}
-            defaultChoice={yearTo}
-            searchPlaceholder="Year To"
-            onItemChange={onDropdownChange}
-            parentViewStyle={styles.halfFieldContainer}
-            labelText="To"
-            setStateKey="yearTo"
-          />
-        </View>
-        <View style={{ flexDirection: 'row', zIndex: 2 }}>
-          <SearchableDropdown
-            itemList={ratingList}
-            defaultChoice={rating}
-            searchPlaceholder="Minimum rating"
-            onItemChange={(event, setStateKey) =>
-              onDropdownChange(event, setStateKey)
-            }
-            parentViewStyle={styles.halfFieldContainer}
-            labelText="Rating"
-            setStateKey="rating"
-          />
-          <SearchableDropdown
-            itemList={tempGenreList}
-            defaultChoice={genre}
-            searchPlaceholder="Select genre"
-            onItemChange={onDropdownChange}
-            parentViewStyle={styles.halfFieldContainer}
-            labelText="Genres"
-            setStateKey="genre"
-          />
-        </View>
-        <Button
-          onPress={handleSpin}
-          style={styles.buttonStyle}
-          buttonStyle={{ backgroundColor: lightRed }}
-          title="Spin"
-        />
       </View>
     </>
   );
@@ -147,6 +149,9 @@ const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
     backgroundColor: darkBlue
+  },
+  formContainer: {
+    marginTop: 100
   },
   lanaguageContainer: {
     marginTop: 40,
