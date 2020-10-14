@@ -92,12 +92,7 @@ const ResultsCard = () => {
             onPress={() => {
               handleSpin();
             }}
-            buttonStyle={{
-              marginTop: 10,
-              marginBottom: 10,
-              width: '100%',
-              backgroundColor: lightRed
-            }}
+            buttonStyle={styles.buttonStyle}
             title="Spin again!"
           />
         </Card>
@@ -124,7 +119,8 @@ const styles = StyleSheet.create({
     width: 400,
     backgroundColor: darkBlue,
     borderColor: lightBlue,
-    borderWidth: 20
+    borderWidth: 20,
+    borderRadius: 10
   },
   cardWrapperStyle: {
     backgroundColor: darkBlue,
@@ -132,10 +128,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonStyle: {
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20,
-    zIndex: 1
+    marginTop: 10,
+    marginBottom: 10,
+    width: '100%',
+    backgroundColor: lightRed
   },
   scrollViewStyle: {
     paddingBottom: 10,
