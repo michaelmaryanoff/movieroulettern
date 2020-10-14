@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
@@ -66,33 +66,43 @@ const ResultsCard = () => {
   );
 
   return (
-    <ScrollView style={styles.scrollViewStyle}>
-      <Card
-        wrapperStyle={styles.cardWrapperStyle}
-        containerStyle={styles.cardContainerStyle}
+    <View>
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        style={styles.scrollViewStyle}
       >
-        <Card.Title style={styles.headerStyle} h3>
-          {originalTitle}
-        </Card.Title>
-        <Card.Divider />
-        {cardImage}
-        <Text style={styles.descriptionStyle}>Average score {voteAverage}</Text>
-        <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
-        <Text style={styles.descriptionStyle}>{movieOverview}</Text>
-        <Button
-          onPress={() => {
-            handleSpin();
-          }}
-          buttonStyle={{
-            marginTop: 10,
-            marginBottom: 10,
-            width: '100%',
-            backgroundColor: lightRed
-          }}
-          title="Spin again!"
-        />
-      </Card>
-    </ScrollView>
+        <Card
+          wrapperStyle={styles.cardWrapperStyle}
+          containerStyle={styles.cardContainerStyle}
+        >
+          <Card.Title style={styles.headerStyle} h3>
+            {originalTitle}
+          </Card.Title>
+          <Card.Divider />
+          {cardImage}
+          <Text style={styles.descriptionStyle}>
+            Average score {voteAverage}
+          </Text>
+          <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
+          <Text style={styles.descriptionStyle}>{movieOverview}</Text>
+          <Button
+            onPress={() => {
+              handleSpin();
+            }}
+            buttonStyle={{
+              marginTop: 10,
+              marginBottom: 10,
+              width: '100%',
+              backgroundColor: lightRed
+            }}
+            title="Spin again!"
+          />
+        </Card>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
   },
   cardContainerStyle: {
     alignItems: 'center',
-    width: 300,
+    width: 400,
     backgroundColor: darkBlue,
     borderColor: lightBlue,
     borderWidth: 20
