@@ -21,6 +21,20 @@ export const generateRatingList = () => {
   return ratingsArray;
 };
 
+export const formatGenreList = genreList => {
+  let genreArray = [];
+
+  if (genreList) {
+    for (let i = 0; i <= genreArray.length; i++) {}
+
+    genreArray = genreList.map(genre => {
+      return { label: genre.name, value: genre.id };
+    });
+
+    return genreArray;
+  }
+};
+
 export const languageList = [
   {
     key: 'en',
@@ -89,7 +103,11 @@ export const languageList = [
   }
 ];
 
-export const tempGenreList = [
+export const initialGenreList = [
+  {
+    value: '',
+    label: 'All genres'
+  },
   {
     value: '28',
     label: 'Action'

@@ -15,6 +15,7 @@ import tmdbClient, { apiKey, apiKeyParams } from '../api/tmdbClient';
 
 // Helper methods
 import { generateDateString } from '../helpers';
+import { formatGenreList } from '../dropdownArrays';
 
 export const getGenreCodes = () => async dispatch => {
   dispatch(fetchGenresStarted());
@@ -25,8 +26,13 @@ export const getGenreCodes = () => async dispatch => {
 
   dispatch(fetchGenresCompleted());
 
-  dispatch({ type: GET_GENRE_CODES, payload: data.genres });
-  dispatch({ type: GENRE_DROPDOWN_DATA_SOURCE, payload: data.genres });
+  const allGenres = { id: '', name: 'All genres' };
+  let newArray = [allGenres, ...data.genres];
+
+  const arrayForPayload = formatGenreList(newArray);
+  console.log('arrayForPayload: ', arrayForPayload);
+
+  dispatch({ type: GET_GENRE_CODES, payload: arrayForPayload });
 };
 
 export const spinAgain = () => async (dispatch, getState) => {

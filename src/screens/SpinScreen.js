@@ -9,62 +9,55 @@ import {
   generateYearList,
   languageList,
   generateRatingList,
-  tempGenreList
+  initialGenreList
 } from '../dropdownArrays';
-import {
-  darkBlue,
-  lightRed,
-  lightBlue,
-  veryLightBlue
-} from '../styling/colors';
+import { lightRed, lightBlue } from '../styling/colors';
 
 // Dependencies
 import { withNavigation } from 'react-navigation';
-import { useDispatch } from 'react-redux';
-import { submitSpin } from '../actions';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
+import { submitSpin, getGenreCodes } from '../actions';
 
 const initialState = {
   language: 'en',
   yearFrom: '1955',
   yearTo: '2020',
   rating: '1',
-  genre: '28'
+  genre: ''
 };
 
 const SpinScreen = ({ navigation }) => {
+  /**
+   * Redux State
+   */
   const dispatch = useDispatch();
+  const genreCodes = useSelector(state => state.genreCodes);
+
+  /**
+   * Component State
+   */
   const [{ language, yearFrom, yearTo, rating, genre }, setState] = useState(
     initialState
   );
-
   const [yearList, setYearList] = useState([
     { label: yearFrom, value: yearFrom }
   ]);
   const [yearListReversed, setYearListReversed] = useState([
     { label: yearTo, value: yearTo }
   ]);
-
   const [ratingList, setRatingList] = useState([
     { label: '1 / 10', value: rating }
   ]);
+  const [genreList, setGenreList] = useState(initialGenreList);
 
-  const onDropdownChange = ({ label, value }, setStateKey) => {
+  /**
+   * Input handlers
+   */
+  const onDropdownChange = ({ value }, setStateKey) => {
     setState(prevState => {
       return { ...prevState, [setStateKey]: value };
     });
   };
-
-  useEffect(() => {
-    const years = generateYearList();
-    setYearList(years);
-
-    const reversedYearList = generateYearList().reverse();
-    setYearListReversed(reversedYearList);
-
-    const ratingArray = generateRatingList();
-    setRatingList(ratingArray);
-  }, []);
 
   handleSpin = () => {
     const submissionObject = {
@@ -77,6 +70,29 @@ const SpinScreen = ({ navigation }) => {
     dispatch(submitSpin(submissionObject));
     navigation.navigate('Results');
   };
+
+  /**
+   * Lifecycle functions
+   */
+
+  useEffect(() => {
+    const years = generateYearList();
+    setYearList(years);
+
+    const reversedYearList = generateYearList().reverse();
+    setYearListReversed(reversedYearList);
+
+    const ratingArray = generateRatingList();
+    setRatingList(ratingArray);
+
+    dispatch(getGenreCodes());
+  }, []);
+
+  useEffect(() => {
+    if (genreCodes) {
+      setGenreList(genreCodes);
+    }
+  }, [genreCodes]);
 
   return (
     <>
@@ -129,7 +145,7 @@ const SpinScreen = ({ navigation }) => {
               setStateKey="rating"
             />
             <SearchableDropdown
-              itemList={tempGenreList}
+              itemList={genreList}
               defaultChoice={genre}
               searchPlaceholder="Select genre"
               onItemChange={onDropdownChange}
