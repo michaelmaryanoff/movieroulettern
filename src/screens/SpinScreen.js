@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 
 // Components and constants
@@ -11,12 +11,18 @@ import {
   generateRatingList,
   tempGenreList
 } from '../dropdownArrays';
-import { darkBlue, lightRed, lightBlue } from '../styling/colors';
+import {
+  darkBlue,
+  lightRed,
+  lightBlue,
+  veryLightBlue
+} from '../styling/colors';
 
 // Dependencies
 import { withNavigation } from 'react-navigation';
 import { useDispatch } from 'react-redux';
 import { submitSpin } from '../actions';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const initialState = {
   language: 'en',
@@ -74,6 +80,7 @@ const SpinScreen = ({ navigation }) => {
 
   return (
     <>
+      <StatusBar barStyle="light-content" />
       <View style={styles.parentContainer}>
         <View style={styles.formContainer}>
           <View style={{ zIndex: 4 }}>
@@ -141,6 +148,12 @@ const SpinScreen = ({ navigation }) => {
       </View>
     </>
   );
+};
+
+SpinScreen.navigationOptions = () => {
+  return {
+    header: () => false
+  };
 };
 
 export default withNavigation(SpinScreen);

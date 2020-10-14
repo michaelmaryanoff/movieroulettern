@@ -1,6 +1,12 @@
 // React
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  StatusBar
+} from 'react-native';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,16 +16,32 @@ import ResultsCard from '../components/ResultsCard';
 import LoadingCard from '../components/LoadingCard';
 
 // Constants
-import { lightBlue, darkBlue } from '../styling/colors';
+import { darkBlue, lightBlue } from '../styling/colors';
 
 const ResultsScreen = () => {
   const isSpinning = useSelector(state => state.isSpinning);
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       {isSpinning ? <LoadingCard /> : <ResultsCard />}
     </View>
   );
+};
+
+ResultsScreen.navigationOptions = {
+  title: '',
+  headerStyle: {
+    backgroundColor: darkBlue,
+    borderColor: darkBlue,
+    borderBottomWidth: 0,
+    borderWidth: 0,
+    shadowRadius: 0,
+    shadowOffset: {
+      height: 0
+    }
+  },
+  headerTintColor: 'white'
 };
 
 export default ResultsScreen;
