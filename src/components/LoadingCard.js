@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, ActivityIndicator, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
@@ -10,20 +10,37 @@ import { Card, Button } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { spinAgain } from '../actions';
 
+// Constants
+
+import { darkBlue, lightBlue, lightRed } from '../styling/colors';
+
 const LoadingCard = () => {
   return (
-    <ScrollView style={styles.scrollView}>
-      <Card wrapperStyle={styles.container}>
-        <Card.Title h3>Spinning...</Card.Title>
-        <Card.Divider />
-        <Card.Image style={styles.posterStyle}>
-          <ActivityIndicator size="large" color="blue" />
-        </Card.Image>
-        <Text style={styles.descriptionStyle}>
-          Finding a movie for you to watch!
-        </Text>
-      </Card>
-    </ScrollView>
+    <View>
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        style={styles.scrollViewStyle}
+      >
+        <Card
+          wrapperStyle={styles.cardWrapperStyle}
+          containerStyle={styles.cardContainerStyle}
+        >
+          <Card.Title style={styles.headerStyle} h3>
+            Spinning...
+          </Card.Title>
+          <Card.Divider />
+          <Card.Image style={styles.posterStyle}>
+            <ActivityIndicator size="large" color={lightBlue} />
+          </Card.Image>
+          <Text style={styles.descriptionStyle}>
+            Finding a movie for you to watch!
+          </Text>
+        </Card>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -37,20 +54,34 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   descriptionStyle: {
-    marginTop: 20
+    marginTop: 20,
+    color: 'white'
   },
-  container: {
+  cardContainerStyle: {
     alignItems: 'center',
-    width: 300,
-    height: 500
+    width: 400,
+    backgroundColor: darkBlue,
+    borderColor: lightBlue,
+    borderWidth: 20,
+    borderRadius: 10,
+    height: 600
+  },
+  cardWrapperStyle: {
+    backgroundColor: darkBlue,
+    borderColor: 'orange',
+    alignItems: 'center'
   },
   buttonStyle: {
-    marginTop: 40,
-    marginLeft: 20,
-    marginRight: 20,
-    zIndex: 1
+    marginTop: 10,
+    marginBottom: 10,
+    width: '100%',
+    backgroundColor: lightRed
   },
-  scrollView: {
-    paddingBottom: 10
+  scrollViewStyle: {
+    paddingBottom: 10,
+    backgroundColor: darkBlue
+  },
+  headerStyle: {
+    color: 'white'
   }
 });
