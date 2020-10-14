@@ -1,10 +1,16 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, ActivityIndicator, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  View,
+  useWindowDimensions
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
-import { Card, Button } from 'react-native-elements';
+import { Card } from 'react-native-elements';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +21,7 @@ import { spinAgain } from '../actions';
 import { darkBlue, lightBlue, lightRed } from '../styling/colors';
 
 const LoadingCard = () => {
+  const windwoWidth = useWindowDimensions().width;
   return (
     <View>
       <ScrollView
@@ -26,7 +33,10 @@ const LoadingCard = () => {
       >
         <Card
           wrapperStyle={styles.cardWrapperStyle}
-          containerStyle={styles.cardContainerStyle}
+          containerStyle={{
+            ...styles.cardContainerStyle,
+            width: windwoWidth * 0.9
+          }}
         >
           <Card.Title style={styles.headerStyle} h3>
             Spinning...

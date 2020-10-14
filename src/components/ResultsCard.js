@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
@@ -24,6 +24,7 @@ const initialState = {
 
 const ResultsCard = () => {
   const dispatch = useDispatch();
+  const windowWidth = useWindowDimensions().width;
 
   const [
     { originalTitle, posterPath, movieOverview, releaseDate, voteAverage },
@@ -81,7 +82,10 @@ const ResultsCard = () => {
       >
         <Card
           wrapperStyle={styles.cardWrapperStyle}
-          containerStyle={styles.cardContainerStyle}
+          containerStyle={{
+            ...styles.cardContainerStyle,
+            width: windowWidth * 0.9
+          }}
         >
           <Card.Title style={styles.headerStyle} h3>
             {originalTitle}
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
   },
   cardContainerStyle: {
     alignItems: 'center',
-    width: 400,
+
     backgroundColor: darkBlue,
     borderColor: lightBlue,
     borderWidth: 20,

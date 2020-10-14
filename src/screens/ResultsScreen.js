@@ -1,15 +1,9 @@
 // React
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  StatusBar
-} from 'react-native';
+import { StyleSheet, View, StatusBar, Platform } from 'react-native';
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Components
 import ResultsCard from '../components/ResultsCard';
