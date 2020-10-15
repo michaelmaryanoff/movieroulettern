@@ -1,6 +1,11 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { Button } from 'react-native-elements';
 
 // Components and constants
@@ -16,7 +21,8 @@ import { lightRed, lightBlue } from '../styling/colors';
 // Dependencies
 import { withNavigation } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitSpin, getGenreCodes } from '../actions';
+import { submitSpin, getGenreCodes, touchOutside } from '../actions';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const initialState = {
   language: 'en',
@@ -50,7 +56,7 @@ const SpinScreen = ({ navigation }) => {
   ]);
   const [genreList, setGenreList] = useState(initialGenreList);
 
-  const [isTouchedOutside, setIsTouchedOutside] = useState(true);
+  const [shouldDisplayDropdown, setShouldDisplayDropdown] = useState(false);
 
   /**
    * Input handlers
@@ -96,91 +102,96 @@ const SpinScreen = ({ navigation }) => {
     }
   }, [genreCodes]);
 
-  handleIsOpen = instance => {
-    if (instance.isOpen()) {
-      console.log('isOpen');
-      setIsTouchedOutside(false);
-    }
+  let controller;
+  handleController = instance => {
+    controller = instance;
   };
 
-  handleTouchOutside = event => {
-    console.log('touched outside');
-    setIsTouchedOutside(true);
+  handleTouchOutside = () => {
+    console.log('outside');
+    setShouldDisplayDropdown(false);
   };
 
+  const dropDownRef = React.useRef();
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <View
-        onStartShouldSetResponder={handleTouchOutside}
-        style={styles.parentContainer}
-      >
-        <View style={styles.formContainer}>
-          <View style={{ zIndex: 4 }}>
-            <SearchableDropdown
-              itemList={languageList}
-              searchPlaceholder="Find a language"
-              defaultChoice={language}
-              onItemChange={onDropdownChange}
-              parentViewStyle={styles.lanaguageContainer}
-              labelText="Langauge"
-              setStateKey="language"
-              handleIsOpen={handleIsOpen}
-              // isTouchedOutside={isTouchedOutside}
+      <TouchableWithoutFeedback onPress={() => dropDownRef.current.close()}>
+        <View
+          onStartShouldSetResponder={handleTouchOutside}
+          style={styles.parentContainer}
+        >
+          <View style={styles.formContainer}>
+            <View style={{ zIndex: 4 }}>
+              <SearchableDropdown
+                control={instance => (dropDownRef.current = instance)}
+                itemList={languageList}
+                searchPlaceholder="Find a language"
+                defaultChoice={language}
+                onItemChange={onDropdownChange}
+                parentViewStyle={styles.lanaguageContainer}
+                labelText="Langauge"
+                setStateKey="language"
+                displayDropdown={shouldDisplayDropdown}
+              />
+            </View>
+            <View style={{ flexDirection: 'row', zIndex: 3 }}>
+              <SearchableDropdown
+                control={instance => (dropDownRef.current = instance)}
+                itemList={yearList}
+                defaultChoice={yearFrom}
+                searchPlaceholder="Year From"
+                onItemChange={(event, setStateKey) =>
+                  onDropdownChange(event, setStateKey)
+                }
+                parentViewStyle={styles.halfFieldContainer}
+                labelText="From"
+                setStateKey="yearFrom"
+              />
+              <SearchableDropdown
+                control={instance => (dropDownRef.current = instance)}
+                itemList={yearListReversed}
+                defaultChoice={yearTo}
+                searchPlaceholder="Year To"
+                onItemChange={onDropdownChange}
+                parentViewStyle={styles.halfFieldContainer}
+                labelText="To"
+                setStateKey="yearTo"
+              />
+            </View>
+            <View style={{ flexDirection: 'row', zIndex: 2 }}>
+              <SearchableDropdown
+                control={instance => (dropDownRef.current = instance)}
+                itemList={ratingList}
+                defaultChoice={rating}
+                searchPlaceholder="Minimum rating"
+                onItemChange={(event, setStateKey) =>
+                  onDropdownChange(event, setStateKey)
+                }
+                parentViewStyle={styles.halfFieldContainer}
+                labelText="Rating"
+                setStateKey="rating"
+              />
+              <SearchableDropdown
+                control={instance => (dropDownRef.current = instance)}
+                itemList={genreList}
+                defaultChoice={genre}
+                searchPlaceholder="Select genre"
+                onItemChange={onDropdownChange}
+                parentViewStyle={styles.halfFieldContainer}
+                labelText="Genres"
+                setStateKey="genre"
+              />
+            </View>
+            <Button
+              onPress={handleSpin}
+              style={styles.buttonStyle}
+              buttonStyle={{ backgroundColor: lightRed }}
+              title="Spin"
             />
           </View>
-          <View style={{ flexDirection: 'row', zIndex: 3 }}>
-            <SearchableDropdown
-              itemList={yearList}
-              defaultChoice={yearFrom}
-              searchPlaceholder="Year From"
-              onItemChange={(event, setStateKey) =>
-                onDropdownChange(event, setStateKey)
-              }
-              parentViewStyle={styles.halfFieldContainer}
-              labelText="From"
-              setStateKey="yearFrom"
-            />
-            <SearchableDropdown
-              itemList={yearListReversed}
-              defaultChoice={yearTo}
-              searchPlaceholder="Year To"
-              onItemChange={onDropdownChange}
-              parentViewStyle={styles.halfFieldContainer}
-              labelText="To"
-              setStateKey="yearTo"
-            />
-          </View>
-          <View style={{ flexDirection: 'row', zIndex: 2 }}>
-            <SearchableDropdown
-              itemList={ratingList}
-              defaultChoice={rating}
-              searchPlaceholder="Minimum rating"
-              onItemChange={(event, setStateKey) =>
-                onDropdownChange(event, setStateKey)
-              }
-              parentViewStyle={styles.halfFieldContainer}
-              labelText="Rating"
-              setStateKey="rating"
-            />
-            <SearchableDropdown
-              itemList={genreList}
-              defaultChoice={genre}
-              searchPlaceholder="Select genre"
-              onItemChange={onDropdownChange}
-              parentViewStyle={styles.halfFieldContainer}
-              labelText="Genres"
-              setStateKey="genre"
-            />
-          </View>
-          <Button
-            onPress={handleSpin}
-            style={styles.buttonStyle}
-            buttonStyle={{ backgroundColor: lightRed }}
-            title="Spin"
-          />
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </>
   );
 };

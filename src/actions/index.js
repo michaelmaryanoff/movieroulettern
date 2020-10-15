@@ -6,7 +6,9 @@ import {
   IS_SPINNING,
   SAVE_SELECTION,
   START_SPINNING,
-  STOP_SPINNING
+  STOP_SPINNING,
+  TOUCH_OUTSIDE,
+  TOUCH_INSIDE
 } from './actionTypes';
 
 // Api

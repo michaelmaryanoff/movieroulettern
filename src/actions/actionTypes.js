@@ -5,3 +5,6 @@ export const SUBMIT_SPIN = 'SUBMIT_SPIN';
 export const SAVE_SELECTION = 'SAVE_SELECTION';
 export const START_SPINNING = 'START_SPINNING';
 export const STOP_SPINNING = 'STOP_SPINNING';
+
+export const TOUCH_INSIDE = 'TOUCH_INSIDE';
+export const TOUCH_OUTSIDE = 'TOUCH_OUTSIDE';
