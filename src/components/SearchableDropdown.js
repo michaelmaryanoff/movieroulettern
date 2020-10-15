@@ -10,12 +10,15 @@ const SearchableDropdown = ({
   parentViewStyle,
   labelText,
   setStateKey,
-  z
+  z,
+  handleIsOpen,
+  isTouchedOutside
 }) => {
   return (
     <View style={parentViewStyle}>
       <Text style={styles.itemLabel}>{labelText}</Text>
       <DropDownPicker
+        controller={handleIsOpen}
         searchablePlaceholder={searchPlaceholder}
         searchable
         searchableError={() => <Text>No results</Text>}
@@ -27,6 +30,7 @@ const SearchableDropdown = ({
         zIndex={z}
         containerStyle={{ height: 40 }}
         style={{ backgroundColor: '#fafafa' }}
+        isVisible={isTouchedOutside}
       />
     </View>
   );

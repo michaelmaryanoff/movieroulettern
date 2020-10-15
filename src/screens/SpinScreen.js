@@ -50,6 +50,8 @@ const SpinScreen = ({ navigation }) => {
   ]);
   const [genreList, setGenreList] = useState(initialGenreList);
 
+  const [isTouchedOutside, setIsTouchedOutside] = useState(true);
+
   /**
    * Input handlers
    */
@@ -94,10 +96,25 @@ const SpinScreen = ({ navigation }) => {
     }
   }, [genreCodes]);
 
+  handleIsOpen = instance => {
+    if (instance.isOpen()) {
+      console.log('isOpen');
+      setIsTouchedOutside(false);
+    }
+  };
+
+  handleTouchOutside = event => {
+    console.log('touched outside');
+    setIsTouchedOutside(true);
+  };
+
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <View style={styles.parentContainer}>
+      <View
+        onStartShouldSetResponder={handleTouchOutside}
+        style={styles.parentContainer}
+      >
         <View style={styles.formContainer}>
           <View style={{ zIndex: 4 }}>
             <SearchableDropdown
@@ -108,6 +125,8 @@ const SpinScreen = ({ navigation }) => {
               parentViewStyle={styles.lanaguageContainer}
               labelText="Langauge"
               setStateKey="language"
+              handleIsOpen={handleIsOpen}
+              // isTouchedOutside={isTouchedOutside}
             />
           </View>
           <View style={{ flexDirection: 'row', zIndex: 3 }}>
