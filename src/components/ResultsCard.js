@@ -35,6 +35,23 @@ const ResultsCard = () => {
 
   useEffect(() => {
     if (selectedMovie) {
+      if (selectedMovie === 'NO_RESULTS') {
+        const overview =
+          'There were no results for your selection! Please try a different set of parameters and spin again.';
+        const original_title = 'Please try again!';
+        setState(prevState => {
+          return {
+            ...prevState,
+            originalTitle: original_title,
+            posterPath: '',
+            movieOverview: overview || '',
+            releaseDate: '',
+            voteAverage: ''
+          };
+        });
+        return;
+      }
+
       const {
         original_title,
         poster_path,
@@ -49,8 +66,8 @@ const ResultsCard = () => {
           originalTitle: original_title || '',
           posterPath: poster_path || '',
           movieOverview: overview || '',
-          releaseDate: release_date || '',
-          voteAverage: vote_average || ''
+          releaseDate: `Released ${release_date}` || '',
+          voteAverage: `Average score: ${vote_average}` || ''
         };
       });
     }
@@ -92,18 +109,22 @@ const ResultsCard = () => {
           </Card.Title>
           <Card.Divider />
           {cardImage}
-          <Text style={styles.descriptionStyle}>
-            Average score {voteAverage}
-          </Text>
-          <Text style={styles.descriptionStyle}>Released {releaseDate}</Text>
+          {selectedMovie === 'NO_RESULTS' ? null : (
+            <Text style={styles.descriptionStyle}>{voteAverage}</Text>
+          )}
+          {selectedMovie === 'NO_RESULTS' ? null : (
+            <Text style={styles.descriptionStyle}>{releaseDate}</Text>
+          )}
           <Text style={styles.descriptionStyle}>{movieOverview}</Text>
-          <Button
-            onPress={() => {
-              handleSpin();
-            }}
-            buttonStyle={styles.buttonStyle}
-            title="Spin again!"
-          />
+          {selectedMovie === 'NO_RESULTS' ? null : (
+            <Button
+              onPress={() => {
+                handleSpin();
+              }}
+              buttonStyle={styles.buttonStyle}
+              title="Spin again!"
+            />
+          )}
         </Card>
       </ScrollView>
     </View>
@@ -125,7 +146,6 @@ const styles = StyleSheet.create({
   },
   cardContainerStyle: {
     alignItems: 'center',
-
     backgroundColor: darkBlue,
     borderColor: lightBlue,
     borderWidth: 20,
@@ -133,11 +153,10 @@ const styles = StyleSheet.create({
   },
   cardWrapperStyle: {
     backgroundColor: darkBlue,
-    borderColor: 'orange',
     alignItems: 'center'
   },
   buttonStyle: {
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 10,
     width: '100%',
     backgroundColor: lightRed

@@ -10,7 +10,7 @@ import {
   languageList,
   generateRatingList,
   initialGenreList
-} from '../dropdownArrays';
+} from '../dropdownHelpers';
 import { lightRed, lightBlue } from '../styling/colors';
 
 // Dependencies

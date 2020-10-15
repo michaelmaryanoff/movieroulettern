@@ -1,7 +1,6 @@
 // Types
 import {
   GET_GENRE_CODES,
-  GENRE_DROPDOWN_DATA_SOURCE,
   IS_FETCHING_GENRES,
   SUBMIT_SPIN,
   IS_SPINNING,
@@ -15,7 +14,7 @@ import tmdbClient, { apiKey, apiKeyParams } from '../api/tmdbClient';
 
 // Helper methods
 import { generateDateString } from '../helpers';
-import { formatGenreList } from '../dropdownArrays';
+import { formatGenreList } from '../dropdownHelpers';
 
 export const getGenreCodes = () => async dispatch => {
   dispatch(fetchGenresStarted());
@@ -30,7 +29,6 @@ export const getGenreCodes = () => async dispatch => {
   let newArray = [allGenres, ...data.genres];
 
   const arrayForPayload = formatGenreList(newArray);
-  console.log('arrayForPayload: ', arrayForPayload);
 
   dispatch({ type: GET_GENRE_CODES, payload: arrayForPayload });
 };
@@ -46,7 +44,7 @@ export const submitSpin = ({
   yearTo,
   language,
   genre
-}) => async (dispatch, getState) => {
+}) => async dispatch => {
   dispatch(startSpinning());
   const { dateFrom, dateTo } = generateDateString(yearFrom, yearTo);
 
@@ -63,7 +61,7 @@ export const submitSpin = ({
   let languageInput = language;
   let genreInput = genre;
 
-  const paramsObject = {
+  let paramsObject = {
     api_key: apiKey,
     include_adult: false,
     language: 'en-US',
@@ -77,15 +75,16 @@ export const submitSpin = ({
   };
 
   //! This object is only used for testing purposes, it purposely formats
-  //! An incorrect response. Used for testing situations where no
-  //! results are returned. It must replace individualMovieParams
-  //! and paramsObject in the two get requests below
+  //! an incorrect request. Used for testing situations where no results are returned.
   // eslint-disable-next-line
   const testParamsObject = {
     ...paramsObject,
     'primary_release_date.gte': '2000',
     'primary_release_date.lte': '1955'
   };
+
+  //! Uncomment this line to test queries that return no results
+  // paramsObject = testParamsObject;
 
   const pageResponse = await tmdbClient.get('/discover/movie', {
     params: paramsObject
@@ -113,6 +112,7 @@ export const submitSpin = ({
 
   if (length === 0) {
     let selectedMovie = 'NO_RESULTS';
+    dispatch(stopSpinning());
 
     dispatch({ type: SUBMIT_SPIN, payload: selectedMovie });
     return;
