@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
-import { Card, Button } from 'react-native-elements';
+import { Card, Button, Divider } from 'react-native-elements';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,10 +43,6 @@ const initialState = {
 };
 
 const ResultsCard = () => {
-  let [fontsLoaded] = useFonts({
-    Roboto_500Medium,
-    Roboto_700Bold
-  });
 
   const dispatch = useDispatch();
   const windowWidth = useWindowDimensions().width;
@@ -133,13 +129,13 @@ const ResultsCard = () => {
           <Card.Title style={styles.headerStyle} h3>
             {originalTitle}
           </Card.Title>
-          <Card.Divider />
+          <Card.Divider style={{ height: 5 }} />
           {cardImage}
           {selectedMovie === 'NO_RESULTS' ? null : (
-            <Text style={styles.descriptionStyle}>{voteAverage}</Text>
+            <Text style={styles.additionalInfoStyle}>{voteAverage}</Text>
           )}
           {selectedMovie === 'NO_RESULTS' ? null : (
-            <Text style={styles.descriptionStyle}>{releaseDate}</Text>
+            <Text style={styles.additionalInfoStyle}>{releaseDate}</Text>
           )}
           <Text style={styles.descriptionStyle}>{movieOverview}</Text>
           {selectedMovie === 'NO_RESULTS' ? null : (
@@ -167,8 +163,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   descriptionStyle: {
-    marginTop: 20,
-    color: 'white'
+    marginTop: 12,
+    color: 'white',
+    fontFamily: 'Roboto_700Bold'
+  },
+  additionalInfoStyle: {
+    fontFamily: 'Roboto_400Regular_Italic',
+    color: 'white',
+    marginTop: 10
   },
   cardContainerStyle: {
     alignItems: 'center',

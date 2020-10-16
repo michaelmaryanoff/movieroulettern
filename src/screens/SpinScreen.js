@@ -23,6 +23,7 @@ import { lightRed, lightBlue } from '../styling/colors';
 import { withNavigation } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitSpin, getGenreCodes, touchOutside } from '../actions';
+import { AppLoading } from 'expo';
 
 const initialState = {
   language: 'en',

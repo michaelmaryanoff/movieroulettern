@@ -29,10 +29,6 @@ const SearchableDropdown = ({
   z,
   control
 }) => {
-  let [fontsLoaded] = useFonts({
-    Inter_900Black,
-    Roboto_500Medium
-  });
   return (
     <View style={parentViewStyle}>
       <Text style={styles.itemLabel}>{labelText}</Text>
