@@ -14,6 +14,26 @@ import { lightBlue, darkBlue, lightRed } from '../styling/colors';
 // Assets
 const reelLogoPlaceHolder = require('../images/ReelLogoPlaceholder.jpg');
 
+// Helpers
+import { rawDateToString } from '../helpers';
+
+// Dependencies
+import {
+  useFonts,
+  Roboto_100Thin,
+  Roboto_100Thin_Italic,
+  Roboto_300Light,
+  Roboto_300Light_Italic,
+  Roboto_400Regular,
+  Roboto_400Regular_Italic,
+  Roboto_500Medium,
+  Roboto_500Medium_Italic,
+  Roboto_700Bold,
+  Roboto_700Bold_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic
+} from '@expo-google-fonts/roboto';
+
 const initialState = {
   originalTitle: 'Loading...',
   posterPath: '',
@@ -23,6 +43,11 @@ const initialState = {
 };
 
 const ResultsCard = () => {
+  let [fontsLoaded] = useFonts({
+    Roboto_500Medium,
+    Roboto_700Bold
+  });
+
   const dispatch = useDispatch();
   const windowWidth = useWindowDimensions().width;
 
@@ -61,12 +86,13 @@ const ResultsCard = () => {
       } = selectedMovie;
 
       setState(prevState => {
+        const formattedDate = rawDateToString(release_date);
         return {
           ...prevState,
           originalTitle: original_title || '',
           posterPath: poster_path || '',
           movieOverview: overview || '',
-          releaseDate: `Released ${release_date}` || '',
+          releaseDate: `Released: ${formattedDate}` || '',
           voteAverage: `Average score: ${vote_average}` || ''
         };
       });
@@ -166,6 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: darkBlue
   },
   headerStyle: {
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Roboto_700Bold'
   }
 });

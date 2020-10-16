@@ -12,7 +12,11 @@ import LoadingCard from '../components/LoadingCard';
 // Constants
 import { darkBlue, lightBlue } from '../styling/colors';
 
+
+
+
 const ResultsScreen = () => {
+  
   const isSpinning = useSelector(state => state.isSpinning);
 
   return (

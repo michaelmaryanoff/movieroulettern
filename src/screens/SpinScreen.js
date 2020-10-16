@@ -4,7 +4,8 @@ import {
   StyleSheet,
   View,
   StatusBar,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Text
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -22,7 +23,6 @@ import { lightRed, lightBlue } from '../styling/colors';
 import { withNavigation } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitSpin, getGenreCodes, touchOutside } from '../actions';
-import DropDownPicker from 'react-native-dropdown-picker';
 
 const initialState = {
   language: 'en',
@@ -107,10 +107,7 @@ const SpinScreen = ({ navigation }) => {
     <>
       <StatusBar barStyle="light-content" />
       <TouchableWithoutFeedback onPress={() => dropDownRef.current.close()}>
-        <View
-          onStartShouldSetResponder={handleTouchOutside}
-          style={styles.parentContainer}
-        >
+        <View style={styles.parentContainer}>
           <View style={styles.formContainer}>
             <View style={{ zIndex: 4 }}>
               <SearchableDropdown
