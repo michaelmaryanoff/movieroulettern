@@ -174,7 +174,10 @@ const SpinScreen = ({ navigation }) => {
             <Button
               onPress={handleSpin}
               style={styles.buttonStyle}
-              buttonStyle={{ backgroundColor: lightRed }}
+              buttonStyle={{
+                backgroundColor: lightRed,
+                fontFamily: 'Roboto_900Black_Italic'
+              }}
               title="Spin"
             />
           </View>

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Outside libraries
-import { Card, Button, Divider } from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,7 +43,6 @@ const initialState = {
 };
 
 const ResultsCard = () => {
-
   const dispatch = useDispatch();
   const windowWidth = useWindowDimensions().width;
 
@@ -129,7 +128,7 @@ const ResultsCard = () => {
           <Card.Title style={styles.headerStyle} h3>
             {originalTitle}
           </Card.Title>
-          <Card.Divider style={{ height: 5 }} />
+          <Card.Divider style={{ height: 4 }} />
           {cardImage}
           {selectedMovie === 'NO_RESULTS' ? null : (
             <Text style={styles.additionalInfoStyle}>{voteAverage}</Text>
@@ -177,7 +176,8 @@ const styles = StyleSheet.create({
     backgroundColor: darkBlue,
     borderColor: lightBlue,
     borderWidth: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 10
   },
   cardWrapperStyle: {
     backgroundColor: darkBlue,
