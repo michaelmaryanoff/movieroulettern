@@ -1,27 +1,28 @@
 {
   "expo": {
-    "name": "movieroulettern",
+    "name": "Cinema Roulette",
     "slug": "movieroulettern",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1d2e4f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "./src/images/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.michaelmaryanoff.movieroulette",
+      "buildNumber": "1.0.1"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Can't figure out what to watch tonight! We've got you covered! Pick a set of criteria and we will find a movie at random for you. "
   }
 }
