@@ -130,6 +130,7 @@ const SpinScreen = ({ navigation }) => {
                 setStateKey="language"
                 displayDropdown={shouldDisplayDropdown}
                 keyboardType="default"
+                searchable={true}
               />
             </View>
             <View style={{ flexDirection: 'row', zIndex: 3 }}>
@@ -145,6 +146,7 @@ const SpinScreen = ({ navigation }) => {
                 labelText="From"
                 setStateKey="yearFrom"
                 keyboardType="numeric"
+                searchable={true}
               />
               <SearchableDropdown
                 control={instance => (dropDownRef.current = instance)}
@@ -156,6 +158,7 @@ const SpinScreen = ({ navigation }) => {
                 labelText="To"
                 setStateKey="yearTo"
                 keyboardType="numeric"
+                searchable={true}
               />
             </View>
             <View style={{ flexDirection: 'row', zIndex: 2 }}>
@@ -171,6 +174,7 @@ const SpinScreen = ({ navigation }) => {
                 labelText="Rating"
                 setStateKey="rating"
                 keyboardType="default"
+                searchable={false}
               />
               <SearchableDropdown
                 control={instance => (dropDownRef.current = instance)}
@@ -182,6 +186,7 @@ const SpinScreen = ({ navigation }) => {
                 labelText="Genres"
                 setStateKey="genre"
                 keyboardType="default"
+                searchable={false}
               />
             </View>
             <Button
