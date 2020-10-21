@@ -28,7 +28,8 @@ const SearchableDropdown = ({
   setStateKey,
   z,
   control,
-  keyboardType
+  keyboardType,
+  searchable
 }) => {
   let [fontsLoaded] = useFonts({
     Roboto_100Thin,
@@ -44,7 +45,6 @@ const SearchableDropdown = ({
     Roboto_900Black,
     Roboto_900Black_Italic
   });
-  console.log('defaultChoice: ', defaultChoice);
 
   return (
     <View style={parentViewStyle}>
@@ -53,7 +53,7 @@ const SearchableDropdown = ({
         <DropDownPicker
           controller={control}
           searchablePlaceholder={searchPlaceholder}
-          searchable
+          searchable={searchable}
           searchableError={() => <Text>No results</Text>}
           items={itemList}
           defaultValue={defaultChoice}
