@@ -5,7 +5,8 @@ import {
   View,
   StatusBar,
   TouchableWithoutFeedback,
-  Text
+  Text,
+  Keyboard
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -107,7 +108,13 @@ const SpinScreen = ({ navigation }) => {
   return (
     <>
       <StatusBar barStyle="light-content" />
-      <TouchableWithoutFeedback onPress={() => dropDownRef.current.close()}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+          dropDownRef.current.close();
+        }}
+        accessible={false}
+      >
         <View style={styles.parentContainer}>
           <View style={styles.formContainer}>
             <View style={{ zIndex: 4 }}>
