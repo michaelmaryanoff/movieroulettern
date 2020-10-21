@@ -27,7 +27,8 @@ const SearchableDropdown = ({
   labelText,
   setStateKey,
   z,
-  control
+  control,
+  keyboardType
 }) => {
   let [fontsLoaded] = useFonts({
     Roboto_100Thin,
@@ -43,6 +44,7 @@ const SearchableDropdown = ({
     Roboto_900Black,
     Roboto_900Black_Italic
   });
+  console.log('defaultChoice: ', defaultChoice);
 
   return (
     <View style={parentViewStyle}>
@@ -61,6 +63,8 @@ const SearchableDropdown = ({
           zIndex={z}
           containerStyle={{ height: 40 }}
           style={{ backgroundColor: '#fafafa' }}
+          autoScrollToDefaultValue
+          searchTextInputProps={{ keyboardType }}
         />
       </View>
     </View>
