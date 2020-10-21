@@ -5,8 +5,8 @@ import {
   View,
   StatusBar,
   TouchableWithoutFeedback,
-  Text,
-  Keyboard
+  Keyboard,
+  KeyboardAvoidingView
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -25,6 +25,7 @@ import { withNavigation } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitSpin, getGenreCodes, touchOutside } from '../actions';
 import { AppLoading } from 'expo';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const initialState = {
   language: 'en',
@@ -128,7 +129,7 @@ const SpinScreen = ({ navigation }) => {
                 labelText="Langauge"
                 setStateKey="language"
                 displayDropdown={shouldDisplayDropdown}
-                keyboardType="text"
+                keyboardType="default"
               />
             </View>
             <View style={{ flexDirection: 'row', zIndex: 3 }}>
@@ -169,7 +170,7 @@ const SpinScreen = ({ navigation }) => {
                 parentViewStyle={styles.halfFieldContainer}
                 labelText="Rating"
                 setStateKey="rating"
-                keyboardType="text"
+                keyboardType="default"
               />
               <SearchableDropdown
                 control={instance => (dropDownRef.current = instance)}
@@ -180,7 +181,7 @@ const SpinScreen = ({ navigation }) => {
                 parentViewStyle={styles.halfFieldContainer}
                 labelText="Genres"
                 setStateKey="genre"
-                keyboardType="text"
+                keyboardType="default"
               />
             </View>
             <Button
