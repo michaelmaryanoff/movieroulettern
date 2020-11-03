@@ -23,6 +23,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('reducer fired');
   switch (action.type) {
     case SUBMIT_SPIN:
       return { ...state, selectedMovie: action.payload };

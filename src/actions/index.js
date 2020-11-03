@@ -6,13 +6,14 @@ import {
   IS_SPINNING,
   SAVE_SELECTION,
   START_SPINNING,
-  STOP_SPINNING,
-  TOUCH_OUTSIDE,
-  TOUCH_INSIDE
+  STOP_SPINNING
 } from './actionTypes';
 
 // Api
 import tmdbClient, { apiKey, apiKeyParams } from '../api/tmdbClient';
+
+// For apple store screenshots
+import { demoMovie } from '../demo/demomovie';
 
 // Helper methods
 import { generateDateString } from '../helpers';
