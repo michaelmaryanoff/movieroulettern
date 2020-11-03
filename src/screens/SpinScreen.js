@@ -5,8 +5,7 @@ import {
   View,
   StatusBar,
   TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView
+  Keyboard
 } from 'react-native';
 import { Button } from 'react-native-elements';
 
@@ -23,9 +22,7 @@ import { lightRed, lightBlue } from '../styling/colors';
 // Dependencies
 import { withNavigation } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitSpin, getGenreCodes, touchOutside } from '../actions';
-import { AppLoading } from 'expo';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { submitSpin, getGenreCodes } from '../actions';
 
 const initialState = {
   language: 'en',
